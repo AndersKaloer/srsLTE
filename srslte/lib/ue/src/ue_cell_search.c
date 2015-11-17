@@ -178,7 +178,8 @@ static void get_cell(srslte_ue_cellsearch_t * q, uint32_t nof_detected_frames, s
   found_cell->cfo = q->candidates[nof_detected_frames-1].cfo; 
 }
 
-/** Finds up to 3 cells, one per each N_id_2=0,1,2 and stores ID and CP in the structure pointed by found_cell.
+/**
+ * Finds up to 3 cells, one per each N_id_2=0,1,2 and stores ID and CP in the structure pointed by found_cell.
  * Each position in found_cell corresponds to a different N_id_2. 
  * Saves in the pointer max_N_id_2 the N_id_2 index of the cell with the highest PSR
  * Returns the number of found cells or a negative number if error

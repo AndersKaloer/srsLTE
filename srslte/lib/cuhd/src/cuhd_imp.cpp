@@ -76,6 +76,13 @@ bool isLocked(void *h)
   }
 }
 
+/**
+ * Blocks until the LO is no longer locked (maximum 30 seconds).
+ *
+ * @param h The device
+ *
+ * @return True if unlocked, false if still locked.
+ */
 bool cuhd_rx_wait_lo_locked(void *h)
 {
 
@@ -87,6 +94,12 @@ bool cuhd_rx_wait_lo_locked(void *h)
   return isLocked(h);
 }
 
+/**
+ * Starts streaming data from USRP.
+ * @param h The device
+ *
+ * @return SRSLTE_SUCCESS
+ */
 int cuhd_start_rx_stream(void *h)
 {
   cuhd_handler *handler = static_cast < cuhd_handler * >(h);

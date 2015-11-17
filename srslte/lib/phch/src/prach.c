@@ -319,6 +319,18 @@ int srslte_prach_gen_seqs(srslte_prach_t *p)
   return 0;
 }
 
+/** 
+ * Initializes \p p with information required to access PRACH.
+ * 
+ * @param p The struct to initialize
+ * @param N_ifft_ul The length of the uplink IFFT
+ * @param preamble_format The preamble format to use (0-3 supported)
+ * @param root_seq_index The root sequence index for the Zadoff-Chu sequences.
+ * @param high_speed_flag Whether to use restricted (high speed) or regular (not high speed) preambles.
+ * @param zero_corr_zone_config The zero correlation zone config used in the cell
+ * 
+ * @return \def SRSLTE_SUCCESS or \def SRSLTE_ERROR
+ */
 int srslte_prach_init(srslte_prach_t *p,
                uint32_t N_ifft_ul,
                uint32_t preamble_format,
@@ -418,6 +430,16 @@ int srslte_prach_init(srslte_prach_t *p,
   return ret;
 }
 
+/** 
+ * Generates a PRACH preamble.
+ * 
+ * @param p The PRACH parameters
+ * @param seq_index The index of the ZC sequence to use
+ * @param freq_offset The frequency offset
+ * @param signal Array in which the PRACH preamble is stored.
+ * 
+ * @return \def SRSLTE_SUCCESS or \def SRSLTE_ERROR
+ */
 int srslte_prach_gen(srslte_prach_t *p,
               uint32_t seq_index,
               uint32_t freq_offset,

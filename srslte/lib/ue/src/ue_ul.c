@@ -37,7 +37,14 @@
 #define CURRENT_SLOTLEN_RE SRSLTE_SLOT_LEN_RE(q->cell.nof_prb, q->cell.cp)
 #define CURRENT_SFLEN_RE SRSLTE_SF_LEN_RE(q->cell.nof_prb, q->cell.cp)
 
-
+/** 
+ * Initializes \p q containing variables used for UE uplink.
+ * 
+ * @param q The UE uplink struct to initialize
+ * @param cell The cell configuration
+ * 
+ * @return \def SRSLTE_SUCCESS, \def SRSLTE_ERROR_INVALID_INPUTS or \def SRSLTE_ERROR
+ */
 int srslte_ue_ul_init(srslte_ue_ul_t *q, 
                       srslte_cell_t cell) 
 {
@@ -183,6 +190,19 @@ int srslte_ue_ul_pregen_signals(srslte_ue_ul_t *q) {
 }
 
 
+/** 
+ * Sets the configuration of the uplink.
+ * All arguments may be NULL.
+ * 
+ * @param q The uplink config to set.
+ * @param dmrs_cfg The DMRS configuration to use for the uplink.
+ * @param srs_cfg The SRS configuration to use for the uplink
+ * @param pucch_cfg The PUCCH configuration to use for the uplink
+ * @param pucch_sched
+ * @param uci_cfg
+ * @param hopping_cfg 
+ * @param power_ctrl 
+ */
 void srslte_ue_ul_set_cfg(srslte_ue_ul_t *q, 
                           srslte_refsignal_dmrs_pusch_cfg_t *dmrs_cfg, 
                           srslte_refsignal_srs_cfg_t        *srs_cfg,

@@ -128,9 +128,12 @@ int srslte_pbch_get(cf_t *slot1_data, cf_t *pbch, srslte_cell_t cell) {
   return srslte_pbch_cp(slot1_data, pbch, cell, false);
 }
 
-/** Initializes the PBCH transmitter and receiver. 
+/**
+ * Initializes the PBCH transmitter and receiver. 
  * At the receiver, the field nof_ports in the cell structure indicates the 
  * maximum number of BS transmitter ports to look for.  
+ * @param q The PBCH struct to initialize
+ * @param cell The cell information
  */
 int srslte_pbch_init(srslte_pbch_t *q, srslte_cell_t cell) {
   int ret = SRSLTE_ERROR_INVALID_INPUTS;
@@ -250,8 +253,17 @@ void srslte_pbch_free(srslte_pbch_t *q) {
 }
 
 
-/** Unpacks MIB from PBCH message.
- * msg buffer must be 24 byte length at least
+/**
+ * Unpacks MIB from PBCH message.
+ * The following values will be set in the \p cell struct:
+ * - \var bw_idx
+ * - \var nof_prb
+ * - \var phich_length
+ * - \var phich_resources
+ *
+ * @param msg Array containg the PBCH payload. Must be 24 byte length at least.
+ * @param cell Pointer to cell struct.
+ * @param sfn Output parameter specifying the system frame number.
  */
 void srslte_pbch_mib_unpack(uint8_t *msg, srslte_cell_t *cell, uint32_t *sfn) {
   int phich_res;
@@ -403,13 +415,14 @@ int decode_frame(srslte_pbch_t *q, uint32_t src, uint32_t dst, uint32_t n,
   }
 }
 
-/* Decodes the PBCH channel
+/**
+ * Decodes the PBCH channel.
  *
  * The PBCH spans in 40 ms. This function is called every 10 ms. It tries to decode the MIB
  * given the symbols of a subframe (1 ms). Successive calls will use more subframes
  * to help the decoding process.
  *
- * Returns 1 if successfully decoded MIB, 0 if not and -1 on error
+ * @return 1 if successfully decoded MIB, 0 if not and \def SRSLTE_ERROR or \def SRSLTE_INVALID_INPUTS on error
  */
 int srslte_pbch_decode(srslte_pbch_t *q, cf_t *slot1_symbols, cf_t *ce_slot1[SRSLTE_MAX_PORTS], float noise_estimate, 
                  uint8_t bch_payload[SRSLTE_BCH_PAYLOAD_LEN], uint32_t *nof_tx_ports, uint32_t *sfn_offset) 

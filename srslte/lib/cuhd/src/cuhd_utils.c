@@ -89,8 +89,15 @@ int cuhd_recv_wrapper_cs(void *h, void *data, uint32_t nsamples, srslte_timestam
   return cuhd_recv(h, data, nsamples, 1);
 }
 
-/** This function is simply a wrapper to the ue_cell_search module for cuhd devices 
- * Return 1 if the MIB is decoded, 0 if not or -1 on error. 
+/**
+ * This function is simply a wrapper to the ue_cell_search module for cuhd devices.
+ * This function starts the Rx stream.
+ * 
+ * @param uhd The UHD reference
+ * @param config The configuration for cell search.
+ * @cell Output parameter specifying the decoded cell information.
+ *
+ * @return \def SRSLTE_SUCCESS if the MIB is decoded, 0 if not or -1 on error. 
  */
 int cuhd_mib_decoder(void *uhd, cell_search_cfg_t *config, srslte_cell_t *cell) {
   int ret = SRSLTE_ERROR; 
@@ -136,7 +143,8 @@ clean_exit:
   return ret; 
 }
 
-/** This function is simply a wrapper to the ue_cell_search module for cuhd devices 
+/**
+ * This function is simply a wrapper to the ue_cell_search module for cuhd devices.
  */
 int cuhd_cell_search(void *uhd, cell_search_cfg_t *config, 
                      int force_N_id_2, srslte_cell_t *cell) 
@@ -215,10 +223,24 @@ int cuhd_cell_search(void *uhd, cell_search_cfg_t *config,
 }
 
 
-/* Finds a cell and decodes MIB from the PBCH. 
- * Returns 1 if the cell is found and MIB is decoded successfully. 
- * 0 if no cell was found or MIB could not be decoded, 
- * -1 on error
+/**
+ * Finds a cell and decodes MIB from the PBCH.
+ * If a cell is found, then the following values will be configured in \p cell:
+ * - \var bw_idx
+ * - \var nof_prb
+ * - \var phich_length
+ * - \var phich_resources
+ * This command starts the UHD stream.
+ * 
+ * @param uhd The device
+ * @param config The cell search configuration
+ * @param force_N_id_2 Specifies the cell id to search for. If < 0, then all cell ids are
+ *        searched and the cell with the strongest signal is returned.
+ * @param cell Pointer to struct which will be filled with cell information.
+ * 
+ * @return {1 if the cell is found and MIB is decoded successfully,
+ *          0 if no cell was found or MIB could not be decoded, 
+ *          \def SRSLTE_ERROR on error}
  */
 int cuhd_search_and_decode_mib(void *uhd, cell_search_cfg_t *config, int force_N_id_2, srslte_cell_t *cell) 
 {

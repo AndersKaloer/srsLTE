@@ -49,6 +49,14 @@ srslte_dci_format_t common_formats[] = {SRSLTE_DCI_FORMAT1A,SRSLTE_DCI_FORMAT1C}
 const uint32_t nof_common_formats = 2; 
 
 
+/** 
+ * Initializes the downlink parameters.
+ * 
+ * @param q The downlink parameters to initialize.
+ * @param cell The cell for which the parameters should be initialized.
+ * 
+ * @return \def SRSLTE_SUCCESS, \def SRSLTE_ERROR_INVALID_INPUTS or \def SRSLTE_ERROR
+ */
 int srslte_ue_dl_init(srslte_ue_dl_t *q, 
                srslte_cell_t cell) 
 {

@@ -62,21 +62,24 @@
 #define SRSLTE_UE_MIB_FOUND                1
 #define SRSLTE_UE_MIB_NOTFOUND             0
 
+/** 
+ * Specifies parameters used to decode the master information block (MIB).
+ */
 typedef struct SRSLTE_API {
   srslte_sync_t sfind;
  
-  cf_t *sf_symbols;
-  cf_t *ce[SRSLTE_MAX_PORTS];
+  cf_t *sf_symbols; /// Array of decoded OFDM symbols
+  cf_t *ce[SRSLTE_MAX_PORTS]; /// Array of channel estimates
   
-  srslte_ofdm_t fft;
-  srslte_chest_dl_t chest; 
-  srslte_pbch_t pbch;
+  srslte_ofdm_t fft; /// Information used to do the FFT of OFDM
+  srslte_chest_dl_t chest; /// Channel estimate of downlink channel
+  srslte_pbch_t pbch; /// Struct to keep track of PBCH
   
-  uint8_t bch_payload[SRSLTE_BCH_PAYLOAD_LEN];
-  uint32_t nof_tx_ports; 
-  uint32_t sfn_offset; 
+  uint8_t bch_payload[SRSLTE_BCH_PAYLOAD_LEN]; /// Payload of the BCH packet
+  uint32_t nof_tx_ports; /// Number of tx ports
+  uint32_t sfn_offset; /// The system frame number offset
   
-  uint32_t frame_cnt; 
+  uint32_t frame_cnt; /// Frame counter
 } srslte_ue_mib_t;
 
 SRSLTE_API int srslte_ue_mib_init(srslte_ue_mib_t *q, 
@@ -93,7 +96,8 @@ SRSLTE_API int srslte_ue_mib_decode(srslte_ue_mib_t * q,
                                     uint32_t *sfn_offset); 
 
 
-/* This interface uses ue_mib and ue_sync to first get synchronized subframes 
+/**
+ * This interface uses ue_mib and ue_sync to first get synchronized subframes 
  * and then decode MIB
  * 
  * This object calls the pbch object with nof_ports=0 for blind nof_ports determination 

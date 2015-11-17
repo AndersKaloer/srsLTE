@@ -45,6 +45,9 @@
 #define SRSLTE_NOF_DELTA_SS    30
 #define SRSLTE_NOF_CSHIFT      8
 
+/**
+ * Contains configuration for the DMRS.
+ */
 typedef struct SRSLTE_API {
   uint32_t cyclic_shift; 
   uint32_t delta_ss;  

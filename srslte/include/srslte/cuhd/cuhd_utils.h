@@ -28,11 +28,14 @@
 
 #include "srslte/srslte.h"
 
+/**
+ * Defines the configuration used by the srsLTE library.
+ */
 typedef struct SRSLTE_API {
-  uint32_t max_frames_pbch; // maximum number of 5ms frames to capture for MIB decoding
-  uint32_t max_frames_pss; // maximum number of 5ms frames to capture for PSS correlation
-  float threshold;   // early-stops cell detection if mean PSR is above this value 
-  float init_agc; // 0 or negative to disable AGC  
+  uint32_t max_frames_pbch; /// maximum number of 5ms frames to capture for MIB decoding
+  uint32_t max_frames_pss; /// maximum number of 5ms frames to capture for PSS correlation
+  float threshold;   /// early-stops cell detection if mean PSR is above this value
+  float init_agc; /// 0 or negative to disable AGC
 } cell_search_cfg_t;
 
 SRSLTE_API int cuhd_rssi_scan(void *uhd, 

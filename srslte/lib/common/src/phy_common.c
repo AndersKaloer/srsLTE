@@ -214,6 +214,11 @@ int srslte_symbol_sz_power2(uint32_t nof_prb) {
   }
 }
 
+/**
+ * Returns the DFT size for the specified number of PRBs.
+ * @param nof_prb The number of physical resource blocks.
+ * @return The DFT size to use.
+ */
 int srslte_symbol_sz(uint32_t nof_prb) {
   if (nof_prb<=0) {
     return SRSLTE_ERROR;

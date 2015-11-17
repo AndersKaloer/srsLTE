@@ -133,11 +133,14 @@ typedef enum SRSLTE_API {
   SRSLTE_PHICH_EXT  
 } srslte_phich_length_t;
 
+/**
+ * Paramter specifying the number groups used for resource blocks in PHICH.
+ */
 typedef enum SRSLTE_API { 
-  SRSLTE_PHICH_SRSLTE_PHICH_R_1_6 = 0, 
-  SRSLTE_PHICH_SRSLTE_PHICH_R_1_2, 
-  SRSLTE_PHICH_R_1, 
-  SRSLTE_PHICH_R_2
+  SRSLTE_PHICH_SRSLTE_PHICH_R_1_6 = 0, /// 1/6 
+  SRSLTE_PHICH_SRSLTE_PHICH_R_1_2, /// 1/2
+  SRSLTE_PHICH_R_1, /// 1
+  SRSLTE_PHICH_R_2 /// 2
   
 } srslte_phich_resources_t;
 
@@ -151,14 +154,17 @@ typedef enum {
   SRSLTE_RNTI_NOF_TYPES
 } srslte_rnti_type_t;
 
+/** 
+ * Specifies the cell configuration.
+ */
 typedef struct SRSLTE_API {
-  uint32_t nof_prb;
-  uint32_t nof_ports; 
-  uint32_t bw_idx; 
-  uint32_t id;
-  srslte_cp_t cp;
-  srslte_phich_length_t phich_length;
-  srslte_phich_resources_t phich_resources;
+  uint32_t nof_prb; /// Number of physical resource blocks
+  uint32_t nof_ports; /// Number of antenna ports
+  uint32_t bw_idx; /// Downlink bandwidth setting
+  uint32_t id; /// Cell id
+  srslte_cp_t cp; /// Cyclic prefix duration
+  srslte_phich_length_t phich_length; /// PHICH duration
+  srslte_phich_resources_t phich_resources; /// Number resource blocks are used for PHICH (number of groups)
 }srslte_cell_t;
 
 typedef enum SRSLTE_API {

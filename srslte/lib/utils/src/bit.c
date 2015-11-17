@@ -238,6 +238,14 @@ void srslte_bit_unpack_vector(uint8_t *packed, uint8_t *unpacked, int nof_bits)
   }
 }
 
+/** 
+ * Unpacks \p nof_bits from \p value into the \p bits array.
+ * The bits will be stored as 1 bit per byte in the \p bits array.
+ *
+ * @param value The value from which to unpack the bits.
+ * @param bits Pointer to array to which the bits are unpacked.
+ * @param nof_bits The number of bits to unpack. Maximum value is 64.
+ */
 void srslte_bit_unpack_l(uint64_t value, uint8_t **bits, int nof_bits)
 {
   int i;
@@ -248,6 +256,14 @@ void srslte_bit_unpack_l(uint64_t value, uint8_t **bits, int nof_bits)
   *bits += nof_bits;
 }
 
+/** 
+ * Unpacks \p nof_bits from \p value into the \p bits array.
+ * The bits will be stored as 1 bit per byte in the \p bits array.
+ *
+ * @param value The value from which to unpack the bits.
+ * @param bits Pointer to array to which the bits are unpacked.
+ * @param nof_bits The number of bits to unpack. Maximum value is 32.
+ */
 void srslte_bit_unpack(uint32_t value, uint8_t **bits, int nof_bits)
 {
     int i;
@@ -271,6 +287,14 @@ void srslte_bit_pack_vector(uint8_t *unpacked, uint8_t *packed, int nof_bits)
   }
 }
 
+/** 
+ * Packs \p nof_bits from \p bits and increases the pointer to \p bits.
+ * 
+ * @param bits Pointer to array of bits, represented as 1 bit per byte.
+ * @param nof_bits The number of bits to unpack. Maximum value is 32.
+ * 
+ * @return A 32 bit value with the packed bits from \p bits
+ */
 uint32_t srslte_bit_pack(uint8_t **bits, int nof_bits)
 {
     int i;
@@ -283,6 +307,14 @@ uint32_t srslte_bit_pack(uint8_t **bits, int nof_bits)
     return value;
 }
 
+/** 
+ * Packs \p nof_bits from \p bits and increases the pointer to \p bits.
+ * 
+ * @param bits Pointer to array of bits, represented as 1 bit per byte.
+ * @param nof_bits The number of bits to unpack. Maximum value is 64.
+ * 
+ * @return A 64 bit value with the packed bits from \p bits
+ */
 uint64_t srslte_bit_pack_l(uint8_t **bits, int nof_bits)
 {
     int i;

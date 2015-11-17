@@ -149,7 +149,8 @@ void srslte_ofdm_tx_free(srslte_ofdm_t *q) {
   srslte_ofdm_free_(q);
 }
 
-/* Transforms input samples into output OFDM symbols.
+/**
+ * Transforms input samples into output OFDM symbols.
  * Performs FFT on a each symbol and removes CP.
  */
 void srslte_ofdm_rx_slot(srslte_ofdm_t *q, cf_t *input, cf_t *output) {
@@ -175,6 +176,13 @@ void srslte_ofdm_rx_slot_zerocopy(srslte_ofdm_t *q, cf_t *input, cf_t *output) {
   }  
 }
 
+/** 
+ * Decodes OFDM symbols from input samples.
+ * 
+ * @param q Specifies the OFDM configuration.
+ * @param input Array of input signal samples.
+ * @param output Output OFDM symbols.
+ */
 void srslte_ofdm_rx_sf(srslte_ofdm_t *q, cf_t *input, cf_t *output) {
   uint32_t n; 
   if (q->freq_shift) {
@@ -185,7 +193,8 @@ void srslte_ofdm_rx_sf(srslte_ofdm_t *q, cf_t *input, cf_t *output) {
   }
 }
 
-/* Transforms input OFDM symbols into output samples.
+/**
+ * Transforms input OFDM symbols into output samples.
  * Performs FFT on a each symbol and adds CP.
  */
 void srslte_ofdm_tx_slot(srslte_ofdm_t *q, cf_t *input, cf_t *output) {

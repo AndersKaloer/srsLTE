@@ -36,6 +36,13 @@
 #include "srslte/utils/debug.h"
 #include "srslte/utils/vector.h"
 
+/**
+ * Initializes \p q with the cell information provided by \p cell.
+ *
+ * @param q The MIB struct to fill.
+ * @param cell The cell information.
+ * @return \def SRSLTE_SUCCESS, \def SRSLTE_ERROR or \def SRSLTE_ERROR_INVALID_INPUTS
+ */
 int srslte_ue_mib_init(srslte_ue_mib_t * q, 
                        srslte_cell_t cell) 
 {
@@ -117,6 +124,17 @@ void srslte_ue_mib_reset(srslte_ue_mib_t * q)
   srslte_pbch_decode_reset(&q->pbch);
 }
 
+/** 
+ * Decodes a MIB.
+ * 
+ * @param q Parameters used for MIB decoding.
+ * @param input The input signal to decode.
+ * @param bch_payload Array in which the BCH payload will be stored.
+ * @param nof_tx_ports Output paramter specifying the number of tx ports
+ * @param sfn_offset Output parameter specifying the system frame number offset
+ * 
+ * @return \def SRSLTE_SUCCESS, \def SRSLTE_UE_MIB_NOTFOUND or \def SRSLTE_ERROR
+ */
 int srslte_ue_mib_decode(srslte_ue_mib_t * q, cf_t *input, 
                   uint8_t bch_payload[SRSLTE_BCH_PAYLOAD_LEN], uint32_t *nof_tx_ports, uint32_t *sfn_offset)
 {
@@ -199,6 +217,17 @@ void srslte_ue_mib_sync_reset(srslte_ue_mib_sync_t * q) {
   srslte_ue_sync_reset(&q->ue_sync);
 }
 
+/** 
+ * Decodes the MIB.
+ * 
+ * @param q Parameters from MIB detection
+ * @param max_frames_timeout Maximum number of frames to try decoding before timing out.
+ * @param bch_payload Array in which the BCH data will be stored.
+ * @param nof_tx_ports Output paramter specifying the number of tx ports
+ * @param sfn_offset Output parameter specifying the system frame number offset
+ * 
+ * @return \def SRSLTE_SUCCESS, \def SRSLTE_ERROR_INVALID_INPUTS, \def SRSLTE_UE_MIB_NOTFOUND or \def SRSLTE_ERROR
+ */
 int srslte_ue_mib_sync_decode(srslte_ue_mib_sync_t * q, 
                        uint32_t max_frames_timeout,
                        uint8_t bch_payload[SRSLTE_BCH_PAYLOAD_LEN], 

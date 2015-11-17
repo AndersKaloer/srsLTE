@@ -54,7 +54,9 @@
 
 #define SRSLTE_UE_UL_NOF_HARQ_PROCESSES 8
 
-/* UE UL power control */
+/**
+ * UE UL power control
+*/
 typedef struct {
   // Common configuration
   float p0_nominal_pusch;
@@ -71,6 +73,9 @@ typedef struct {
   float p_srs_offset;  
 } srslte_ue_ul_powerctrl_t;
 
+/**
+ * Contains parameters and variables used for UE uplink.
+ */
 typedef struct SRSLTE_API {
   srslte_ofdm_t fft;
   srslte_cfo_t cfo; 

@@ -100,6 +100,16 @@ int srslte_ue_sync_start_agc(srslte_ue_sync_t *q, double (set_gain_callback)(voi
   return n; 
 }
 
+/** 
+ * Initializes the UE synchronization parameters.
+ * 
+ * @param q The parameters to initialize
+ * @param cell The cell to which the UE should communicate.
+ * @param recv_callback 
+ * @param stream_handler
+ * 
+ * @return 
+ */
 int srslte_ue_sync_init(srslte_ue_sync_t *q, 
                  srslte_cell_t cell,
                  int (recv_callback)(void*, void*, uint32_t,srslte_timestamp_t*),
@@ -380,6 +390,9 @@ static int receive_samples(srslte_ue_sync_t *q, cf_t *input_buffer) {
 
 bool first_track = true; 
 
+/**
+ * Returns the symbol buffer from the sync struct.
+ */
 int srslte_ue_sync_get_buffer(srslte_ue_sync_t *q, cf_t **sf_symbols) {
   int ret = srslte_ue_sync_zerocopy(q, q->input_buffer);
   if (sf_symbols) {
