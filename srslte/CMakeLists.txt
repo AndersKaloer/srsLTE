@@ -1,6 +1,5 @@
 #
-# Copyright 2013-2015 The srsLTE Developers. See the
-# COPYRIGHT file at the top-level directory of this distribution.
+# Copyright 2013-2015 Software Radio Systems Limited
 #
 # This file is part of the srsLTE library.
 #
@@ -24,8 +23,7 @@
 ########################################################################
 INSTALL(DIRECTORY include/ 
         DESTINATION "${INCLUDE_DIR}" 
-        FILES_MATCHING PATTERN "*.h" 
-        PATTERN ".svn" EXCLUDE
+        FILES_MATCHING PATTERN "*.h"
 )
 
 ########################################################################
@@ -50,4 +48,5 @@ FIND_PACKAGE(UHD)
 # Add subdirectories
 ########################################################################
 ADD_SUBDIRECTORY(lib)
+ADD_SUBDIRECTORY(include)
 ADD_SUBDIRECTORY(examples)

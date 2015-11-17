@@ -2,8 +2,7 @@
  *
  * \section COPYRIGHT
  *
- * Copyright 2013-2015 The srsLTE Developers. See the
- * COPYRIGHT file at the top-level directory of this distribution.
+ * Copyright 2013-2015 Software Radio Systems Limited
  *
  * \section LICENSE
  *
@@ -383,7 +382,7 @@ double cuhd_set_tx_gain(void *h, double gain)
 {
   cuhd_handler *handler = static_cast < cuhd_handler * >(h);
   handler->usrp->set_tx_gain(gain);
-  return handler->usrp->get_tx_gain();
+  return gain;
 }
 
 double cuhd_set_tx_srate(void *h, double freq)

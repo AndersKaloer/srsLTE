@@ -2,8 +2,7 @@
  *
  * \section COPYRIGHT
  *
- * Copyright 2013-2015 The srsLTE Developers. See the
- * COPYRIGHT file at the top-level directory of this distribution.
+ * Copyright 2013-2015 Software Radio Systems Limited
  *
  * \section LICENSE
  *
@@ -32,11 +31,12 @@
 #ifdef __cplusplus
     extern "C" {
 #endif
-
+      
 #include <complex.h>
 #include <math.h>
 
 #include "srslte/config.h"
+#include "srslte/version.h"
 
 #include "srslte/utils/bit.h"
 #include "srslte/utils/convolution.h"
@@ -115,6 +115,7 @@
 #include "srslte/sync/sss.h"
 #include "srslte/sync/sync.h"
 #include "srslte/sync/cfo.h"
+#include "srslte/sync/cp.h"
 
 #ifdef __cplusplus
 }

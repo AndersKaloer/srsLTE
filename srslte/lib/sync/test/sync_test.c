@@ -2,8 +2,7 @@
  *
  * \section COPYRIGHT
  *
- * Copyright 2013-2015 The srsLTE Developers. See the
- * COPYRIGHT file at the top-level directory of this distribution.
+ * Copyright 2013-2015 Software Radio Systems Limited
  *
  * \section LICENSE
  *
@@ -79,14 +78,14 @@ void parse_args(int argc, char **argv) {
 }
 
 int main(int argc, char **argv) {
-  int N_id_2, ns, find_ns;
+  int N_id_2, sf_idx, find_sf;
   cf_t *buffer, *fft_buffer;
   cf_t pss_signal[SRSLTE_PSS_LEN];
   float sss_signal0[SRSLTE_SSS_LEN]; // for subframe 0
   float sss_signal5[SRSLTE_SSS_LEN]; // for subframe 5
   int cid, max_cid; 
   uint32_t find_idx;
-  srslte_sync_t sync;
+  srslte_sync_t syncobj;
   srslte_ofdm_t ifft;
   int fft_size; 
   
@@ -104,7 +103,7 @@ int main(int argc, char **argv) {
     exit(-1);
   }
 
-  fft_buffer = malloc(sizeof(cf_t) * FLEN);
+  fft_buffer = malloc(sizeof(cf_t) * FLEN * 2);
   if (!fft_buffer) {
     perror("malloc");
     exit(-1);
@@ -115,16 +114,17 @@ int main(int argc, char **argv) {
     exit(-1);
   }
 
-  if (srslte_sync_init(&sync, FLEN, fft_size)) {
+  if (srslte_sync_init(&syncobj, FLEN, FLEN, fft_size)) {
     fprintf(stderr, "Error initiating PSS/SSS\n");
     return -1;
   }
   
-  srslte_sync_set_cp(&sync, cp);
+  srslte_sync_set_cp(&syncobj, cp);
 
   /* Set a very high threshold to make sure the correlation is ok */
-  srslte_sync_set_threshold(&sync, 5.0);
-  srslte_sync_set_sss_algorithm(&sync, SSS_PARTIAL_3);
+  srslte_sync_set_threshold(&syncobj, 5.0);
+  srslte_sync_set_sss_algorithm(&syncobj, SSS_PARTIAL_3);
+  srslte_sync_set_cfo_enable(&syncobj, false); 
 
   if (cell_id == -1) {
     cid = 0;
@@ -140,33 +140,34 @@ int main(int argc, char **argv) {
     srslte_pss_generate(pss_signal, N_id_2);
     srslte_sss_generate(sss_signal0, sss_signal5, cid);
 
-    srslte_sync_set_N_id_2(&sync, N_id_2);
+    srslte_sync_set_N_id_2(&syncobj, N_id_2);
     
-    for (ns=0;ns<2;ns++) {
+    // SF1 is SF5 
+    for (sf_idx=0;sf_idx<2;sf_idx++) {
       memset(buffer, 0, sizeof(cf_t) * FLEN);
       srslte_pss_put_slot(pss_signal, buffer, nof_prb, cp);
-      srslte_sss_put_slot(ns?sss_signal5:sss_signal0, buffer, nof_prb, cp);
+      srslte_sss_put_slot(sf_idx?sss_signal5:sss_signal0, buffer, nof_prb, cp);
 
       /* Transform to OFDM symbols */
       memset(fft_buffer, 0, sizeof(cf_t) * FLEN);
-      srslte_ofdm_tx_slot(&ifft, buffer, &fft_buffer[offset]);
+      srslte_ofdm_tx_sf(&ifft, buffer, &fft_buffer[offset]);
       
-      if (srslte_sync_find(&sync, fft_buffer, 0, &find_idx) < 0) {
+      if (srslte_sync_find(&syncobj, fft_buffer, 0, &find_idx) < 0) {
         fprintf(stderr, "Error running srslte_sync_find\n");
         exit(-1);
       }
-      find_ns = 2*srslte_sync_get_sf_idx(&sync);
+      find_sf = srslte_sync_get_sf_idx(&syncobj);
       printf("cell_id: %d find: %d, offset: %d, ns=%d find_ns=%d\n", cid, find_idx, offset,
-          ns, find_ns);
+          sf_idx, find_sf);
       if (find_idx != offset + FLEN/2) {
         printf("offset != find_offset: %d != %d\n", find_idx, offset + FLEN/2);
         exit(-1);
       }
-      if (ns*10 != find_ns) {
-        printf("ns != find_ns\n", 10 * ns, find_ns);
+      if (sf_idx*5 != find_sf) {
+        printf("ns != find_ns\n");
         exit(-1);
       }
-      if (srslte_sync_get_cp(&sync) != cp) {
+      if (srslte_sync_get_cp(&syncobj) != cp) {
         printf("Detected CP should be %s\n", SRSLTE_CP_ISNORM(cp)?"Normal":"Extended");
         exit(-1);
       }
@@ -177,7 +178,7 @@ int main(int argc, char **argv) {
   free(fft_buffer);
   free(buffer);
 
-  srslte_sync_free(&sync);
+  srslte_sync_free(&syncobj);
   srslte_ofdm_tx_free(&ifft);
 
   printf("Ok\n");

@@ -2,8 +2,7 @@
  *
  * \section COPYRIGHT
  *
- * Copyright 2013-2015 The srsLTE Developers. See the
- * COPYRIGHT file at the top-level directory of this distribution.
+ * Copyright 2013-2015 Software Radio Systems Limited
  *
  * \section LICENSE
  *
@@ -62,25 +61,5 @@ SRSLTE_API void srslte_filesource_seek(srslte_filesource_t *q,
 SRSLTE_API int srslte_filesource_read(srslte_filesource_t *q, 
                                       void *buffer, 
                                       int nsamples);
-
-
-/* High-level API */
-typedef struct SRSLTE_API {
-  srslte_filesource_t obj;
-  struct srslte_filesource_init {
-    char *file_name;
-    int block_length;
-    int data_type;
-  } init;
-  struct srslte_filesource_ctrl_in {
-    int nsamples;        // Number of samples to read
-  } ctrl_in;
-  void* output;
-  int out_len;
-}srslte_filesource_hl;
-
-SRSLTE_API int srslte_filesource_initialize(srslte_filesource_hl* h);
-SRSLTE_API int srslte_filesource_work(  srslte_filesource_hl* hl);
-SRSLTE_API int srslte_filesource_stop(srslte_filesource_hl* h);
 
 #endif // FILESOURCE_

@@ -2,8 +2,7 @@
  *
  * \section COPYRIGHT
  *
- * Copyright 2013-2015 The srsLTE Developers. See the
- * COPYRIGHT file at the top-level directory of this distribution.
+ * Copyright 2013-2015 Software Radio Systems Limited
  *
  * \section LICENSE
  *
@@ -281,20 +280,4 @@ int srslte_demod_soft_demodulate_s(srslte_mod_t modulation, const cf_t* symbols,
       return -1; 
   } 
   return 0; 
-}
-
-
-/* High-Level API */
-int srslte_demod_soft_initialize(srslte_demod_soft_hl* hl) {
-  return 0;
-}
-
-int srslte_demod_soft_work(srslte_demod_soft_hl* hl) {
-  int ret = srslte_demod_soft_demodulate(hl->init.std,hl->input,hl->output,hl->in_len);
-  hl->out_len = ret;
-  return 0;
-}
-
-int srslte_demod_soft_stop(srslte_demod_soft_hl* hl) {
-  return 0;
 }

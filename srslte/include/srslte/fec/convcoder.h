@@ -2,8 +2,7 @@
  *
  * \section COPYRIGHT
  *
- * Copyright 2013-2015 The srsLTE Developers. See the
- * COPYRIGHT file at the top-level directory of this distribution.
+ * Copyright 2013-2015 Software Radio Systems Limited
  *
  * \section LICENSE
  *
@@ -53,27 +52,5 @@ SRSLTE_API int srslte_convcoder_encode(srslte_convcoder_t *q,
                                        uint8_t *output, 
                                        uint32_t frame_length);
 
-
-/* High-level API */
-typedef struct SRSLTE_API {
-  srslte_convcoder_t obj;
-  struct srslte_convcoder_ctrl_in {
-    int rate;
-    int constraint_length;
-    int tail_bitting;
-    int generator_0;
-    int generator_1;
-    int generator_2;
-    int frame_length;
-  } ctrl_in;
-  uint8_t *input;
-  int in_len;
-  uint8_t *output;
-  int out_len;
-}srslte_convcoder_hl;
-
-SRSLTE_API int srslte_convcoder_initialize(srslte_convcoder_hl* h);
-SRSLTE_API int srslte_convcoder_work(srslte_convcoder_hl* hl);
-SRSLTE_API int srslte_convcoder_stop(srslte_convcoder_hl* h);
 
 #endif

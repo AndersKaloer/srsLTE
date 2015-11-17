@@ -2,8 +2,7 @@
  *
  * \section COPYRIGHT
  *
- * Copyright 2013-2015 The srsLTE Developers. See the
- * COPYRIGHT file at the top-level directory of this distribution.
+ * Copyright 2013-2015 Software Radio Systems Limited
  *
  * \section LICENSE
  *
@@ -56,20 +55,4 @@ void srslte_ch_awgn_f(const float* x, float* y, float variance, uint32_t len) {
   for (i=0;i<len;i++) {
     y[i] = x[i] + variance * rand_gauss();
   }
-}
-
-/* High-level API */
-int srslte_ch_awgn_initialize(srslte_ch_awgn_hl* hl) {
-
-  return 0;
-}
-
-int srslte_ch_awgn_work(srslte_ch_awgn_hl* hl) {
-  srslte_ch_awgn_c(hl->input,hl->output,hl->ctrl_in.variance,hl->in_len);
-  hl->out_len = hl->in_len;
-  return 0;
-}
-
-int srslte_ch_awgn_stop(srslte_ch_awgn_hl* hl) {
-  return 0;
 }

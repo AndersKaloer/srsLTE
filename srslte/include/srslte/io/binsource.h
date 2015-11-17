@@ -2,8 +2,7 @@
  *
  * \section COPYRIGHT
  *
- * Copyright 2013-2015 The srsLTE Developers. See the
- * COPYRIGHT file at the top-level directory of this distribution.
+ * Copyright 2013-2015 Software Radio Systems Limited
  *
  * \section LICENSE
  *
@@ -68,23 +67,5 @@ SRSLTE_API void srslte_binsource_cache_cpy(srslte_binsource_t* q,
 SRSLTE_API int srslte_binsource_generate(srslte_binsource_t* q, 
                                          uint8_t *bits, 
                                          int nbits);
-
-/* High-level API */
-typedef struct SRSLTE_API {
-  srslte_binsource_t obj;
-  struct srslte_binsource_init {
-    int cache_seq_nbits;   // If non-zero, generates random bits on init
-    uint32_t seed;    // If non-zero, uses as random seed, otherwise local time is used.
-  } init;
-  struct srslte_binsource_ctrl_in {
-    int nbits;        // Number of bits to generate
-  } ctrl_in;
-  uint8_t* output;
-  int out_len;
-}srslte_binsource_hl;
-
-SRSLTE_API int srslte_binsource_initialize(srslte_binsource_hl* h);
-SRSLTE_API int srslte_binsource_work(  srslte_binsource_hl* hl);
-SRSLTE_API int srslte_binsource_stop(srslte_binsource_hl* hl);
 
 #endif // BINSOURCE_

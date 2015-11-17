@@ -2,8 +2,7 @@
  *
  * \section COPYRIGHT
  *
- * Copyright 2013-2015 The srsLTE Developers. See the
- * COPYRIGHT file at the top-level directory of this distribution.
+ * Copyright 2013-2015 Software Radio Systems Limited
  *
  * \section LICENSE
  *
@@ -75,25 +74,5 @@ SRSLTE_API int srslte_netsource_read(srslte_netsource_t *q,
 
 SRSLTE_API int srslte_netsource_set_timeout(srslte_netsource_t *q, 
                                             uint32_t microseconds); 
-
-
-/* High-level API */
-typedef struct SRSLTE_API {
-  srslte_netsource_t obj;
-  struct srslte_netsource_init {
-    char *address;
-    int port;
-    int data_type;
-  } init;
-  struct srslte_netsource_ctrl_in {
-    int nsamples;        // Number of samples to read
-  } ctrl_in;
-  void* output;
-  int out_len;
-}srslte_netsource_hl;
-
-SRSLTE_API int srslte_netsource_initialize(srslte_netsource_hl* h);
-SRSLTE_API int srslte_netsource_work(  srslte_netsource_hl* hl);
-SRSLTE_API int srslte_netsource_stop(srslte_netsource_hl* h);
 
 #endif // UDPSOURCE_

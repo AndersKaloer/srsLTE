@@ -1,6 +1,5 @@
 #
-# Copyright 2013-2015 The srsLTE Developers. See the
-# COPYRIGHT file at the top-level directory of this distribution.
+# Copyright 2013-2015 Software Radio Systems Limited
 #
 # This file is part of the srsLTE library.
 #
@@ -38,6 +37,11 @@ ELSE(${DISABLE_VOLK})
   FIND_PACKAGE(Volk)
 ENDIF(${DISABLE_VOLK})
 
+IF(VOLK_FOUND)
+  INCLUDE_DIRECTORIES(${VOLK_INCLUDE_DIRS})
+  LINK_DIRECTORIES(${VOLK_LIBRARY_DIRS})
+ENDIF(VOLK_FOUND)
+
 IF(FFTW3F_FOUND)
   INCLUDE_DIRECTORIES(${FFTW3F_INCLUDE_DIRS})
   LINK_DIRECTORIES(${FFTW3F_LIBRARY_DIRS})
@@ -47,7 +51,6 @@ IF(SRSGUI_FOUND)
   INCLUDE_DIRECTORIES(${SRSGUI_INCLUDE_DIRS})
   LINK_DIRECTORIES(${SRSGUI_LIBRARY_DIRS})
 ENDIF(SRSGUI_FOUND)
-
 
 ########################################################################
 # Recurse subdirectories and compile all source files into the same lib  

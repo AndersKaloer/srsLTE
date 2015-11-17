@@ -2,8 +2,7 @@
  *
  * \section COPYRIGHT
  *
- * Copyright 2013-2015 The srsLTE Developers. See the
- * COPYRIGHT file at the top-level directory of this distribution.
+ * Copyright 2013-2015 Software Radio Systems Limited
  *
  * \section LICENSE
  *
@@ -98,6 +97,11 @@ SRSLTE_API int srslte_pss_synch_init_fft(srslte_pss_synch_t *q,
                                          uint32_t frame_size, 
                                          uint32_t fft_size);
 
+SRSLTE_API int srslte_pss_synch_init_fft_offset(srslte_pss_synch_t *q, 
+                                                uint32_t frame_size, 
+                                                uint32_t fft_size, 
+                                                int cfo_i);
+
 SRSLTE_API int srslte_pss_synch_init(srslte_pss_synch_t *q, 
                                      uint32_t frame_size);
 
@@ -129,33 +133,5 @@ SRSLTE_API int srslte_pss_synch_chest(srslte_pss_synch_t *q,
 
 SRSLTE_API float srslte_pss_synch_cfo_compute(srslte_pss_synch_t* q, 
                                               cf_t *pss_recv);
-
-
-/* High-level API */
-
-typedef struct SRSLTE_API {
-  srslte_pss_synch_t obj;
-  struct srslte_pss_synch_init {
-    int frame_size;        // if 0, 2048
-    int unsync_nof_pkts;
-    int N_id_2;
-    int do_cfo;
-  } init;
-  cf_t *input;
-  int in_len;
-  struct srslte_pss_synch_tctrl_in {
-    int correlation_threshold;
-    float manual_cfo;
-  } ctrl_in;
-  cf_t *output;
-  int out_len;
-}srslte_pss_synch_hl;
-
-#define DEFAULT_FRAME_SIZE    2048
-
-SRSLTE_API int srslte_pss_synch_initialize(srslte_pss_synch_hl* h);
-SRSLTE_API int srslte_pss_synch_twork(srslte_pss_synch_hl* hl);
-SRSLTE_API int srslte_pss_synch_tstop(srslte_pss_synch_hl* hl);
-
 
 #endif // PSS_

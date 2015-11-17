@@ -2,8 +2,7 @@
  *
  * \section COPYRIGHT
  *
- * Copyright 2013-2015 The srsLTE Developers. See the
- * COPYRIGHT file at the top-level directory of this distribution.
+* Copyright 2013-2015 Software Radio Systems Limited
  *
  * \section LICENSE
  *
@@ -73,8 +72,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     fprintf(stderr, "Error initiating PSS\n");
     exit(-1);
   }
-  if (srslte_pss_synch_set_N_id_2(&pss, cell.id%2)) {
-    fprintf(stderr, "Error setting N_id_2=%d\n",cell.id%2);
+  if (srslte_pss_synch_set_N_id_2(&pss, cell.id%3)) {
+    fprintf(stderr, "Error setting N_id_2=%d\n",cell.id%3);
     exit(-1);
   }
       

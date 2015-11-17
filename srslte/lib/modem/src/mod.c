@@ -2,8 +2,7 @@
  *
  * \section COPYRIGHT
  *
- * Copyright 2013-2015 The srsLTE Developers. See the
- * COPYRIGHT file at the top-level directory of this distribution.
+ * Copyright 2013-2015 Software Radio Systems Limited
  *
  * \section LICENSE
  *
@@ -152,27 +151,3 @@ int srslte_mod_modulate_bytes(srslte_modem_table_t* q, uint8_t *bits, cf_t* symb
   }
   return nbits/q->nbits_x_symbol;
 }
-
-
-/* High-Level API */
-int mod_initialize(srslte_mod_hl* hl) {
-  srslte_modem_table_init(&hl->obj);
-  if (srslte_modem_table_lte(&hl->obj,hl->init.std)) {
-    return -1;
-  }
-
-  return 0;
-}
-
-int mod_work(srslte_mod_hl* hl) {
-  int ret = srslte_mod_modulate(&hl->obj,hl->input,hl->output,hl->in_len);
-  hl->out_len = ret;
-  return 0;
-}
-
-int mod_stop(srslte_mod_hl* hl) {
-  srslte_modem_table_free(&hl->obj);
-  return 0;
-}
-
-

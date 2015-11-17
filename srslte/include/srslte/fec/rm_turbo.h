@@ -2,8 +2,7 @@
  *
  * \section COPYRIGHT
  *
- * Copyright 2013-2015 The srsLTE Developers. See the
- * COPYRIGHT file at the top-level directory of this distribution.
+ * Copyright 2013-2015 Software Radio Systems Limited
  *
  * \section LICENSE
  *
@@ -83,26 +82,5 @@ SRSLTE_API int srslte_rm_turbo_rx_lut(int16_t *input,
                                       uint32_t cb_idx, 
                                       uint32_t rv_idx); 
 
-
-/* High-level API */
-typedef struct SRSLTE_API {
-  
-  struct srslte_rm_turbo_init {
-    int direction;
-  } init;
-  void *input;  // input type may be uint8_t or float depending on hard
-  int in_len;
-  struct srslte_rm_turbo_ctrl_in {
-    int E;
-    int S;
-    int rv_idx;
-  } ctrl_in;
-  void *output;
-  int out_len;
-} srslte_rm_turbo_hl;
-
-SRSLTE_API int srslte_rm_turbo_initialize(srslte_rm_turbo_hl* h);
-SRSLTE_API int srslte_rm_turbo_work(srslte_rm_turbo_hl* hl);
-SRSLTE_API int srslte_rm_turbo_stop(srslte_rm_turbo_hl* hl);
 
 #endif

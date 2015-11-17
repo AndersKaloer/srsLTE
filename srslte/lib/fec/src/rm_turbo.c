@@ -2,8 +2,7 @@
  *
  * \section COPYRIGHT
  *
- * Copyright 2013-2015 The srsLTE Developers. See the
- * COPYRIGHT file at the top-level directory of this distribution.
+ * Copyright 2013-2015 Software Radio Systems Limited
  *
  * \section LICENSE
  *
@@ -713,23 +712,6 @@ int srslte_rm_turbo_rx(float *w_buff, uint32_t w_buff_len, float *input, uint32_
     }
   }
 
-  return 0;
-}
-
-
-
-/** High-level API */
-
-int srslte_rm_turbo_initialize(srslte_rm_turbo_hl* h) {
-  return 0;
-}
-
-/** This function can be called in a subframe (1ms) basis */
-int srslte_rm_turbo_work(srslte_rm_turbo_hl* hl) {
-  return 0;
-}
-
-int srslte_rm_turbo_stop(srslte_rm_turbo_hl* hl) {
   return 0;
 }
 

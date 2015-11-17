@@ -2,8 +2,7 @@
  *
  * \section COPYRIGHT
  *
- * Copyright 2013-2015 The srsLTE Developers. See the
- * COPYRIGHT file at the top-level directory of this distribution.
+ * Copyright 2013-2015 Software Radio Systems Limited
  *
  * \section LICENSE
  *
@@ -123,21 +122,4 @@ int srslte_netsource_set_timeout(srslte_netsource_t *q, uint32_t microseconds) {
     return -1; 
   }
   return 0; 
-}
-
-int srslte_netsource_initialize(srslte_netsource_hl* h) {
-  return srslte_netsource_init(&h->obj, h->init.address, h->init.port, SRSLTE_NETSOURCE_UDP);
-}
-
-int srslte_netsource_work(srslte_netsource_hl* h) {
-  h->out_len = srslte_netsource_read(&h->obj, h->output, h->ctrl_in.nsamples);
-  if (h->out_len < 0) {
-    return -1;
-  }
-  return 0;
-}
-
-int srslte_netsource_stop(srslte_netsource_hl* h) {
-  srslte_netsource_free(&h->obj);
-  return 0;
 }

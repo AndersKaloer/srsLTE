@@ -2,8 +2,7 @@
  *
  * \section COPYRIGHT
  *
- * Copyright 2013-2015 The srsLTE Developers. See the
- * COPYRIGHT file at the top-level directory of this distribution.
+ * Copyright 2013-2015 Software Radio Systems Limited
  *
  * \section LICENSE
  *
@@ -53,30 +52,5 @@ SRSLTE_API int srslte_demod_soft_demodulate_s(srslte_mod_t modulation,
                                               const cf_t* symbols, 
                                               short* llr, 
                                               int nsymbols); 
-
-/* High-level API */
-typedef struct SRSLTE_API {
-  srslte_modem_table_t table;
-
-  struct srslte_demod_soft_init{
-    srslte_mod_t std;    // symbol mapping standard (see modem_table.h)
-  } init;
-
-  const cf_t* input;
-  int in_len;
-
-  struct srslte_demod_soft_ctrl_in {
-    float sigma;      // Estimated noise variance
-  }ctrl_in;
-
-  float* output;
-  int out_len;
-
-}srslte_demod_soft_hl;
-
-SRSLTE_API int srslte_demod_soft_initialize(srslte_demod_soft_hl* hl);
-SRSLTE_API int srslte_demod_soft_work(srslte_demod_soft_hl* hl);
-SRSLTE_API int srslte_demod_soft_stop(srslte_demod_soft_hl* hl);
-
 
 #endif // DEMOD_SOFT_
