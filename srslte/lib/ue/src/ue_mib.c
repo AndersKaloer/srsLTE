@@ -127,7 +127,7 @@ void srslte_ue_mib_reset(srslte_ue_mib_t * q)
  * Decodes a MIB.
  * 
  * @param q Parameters used for MIB decoding.
- * @param input The input signal to decode.
+ * @param input The input signal to decode (aligned with slot 0).
  * @param bch_payload Array in which the BCH payload will be stored.
  * @param nof_tx_ports Output paramter specifying the number of tx ports
  * @param sfn_offset Output parameter specifying the system frame number offset

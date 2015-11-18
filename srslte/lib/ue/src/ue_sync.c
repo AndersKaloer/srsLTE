@@ -104,8 +104,8 @@ int srslte_ue_sync_start_agc(srslte_ue_sync_t *q, double (set_gain_callback)(voi
  * 
  * @param q The parameters to initialize
  * @param cell The cell to which the UE should communicate.
- * @param recv_callback 
- * @param stream_handler
+ * @param recv_callback Pointer to function which reads received data from UHD.
+ * @param stream_handler The UHD device handler
  * 
  * @return 
  */
@@ -400,7 +400,10 @@ static int receive_samples(srslte_ue_sync_t *q, cf_t *input_buffer) {
 bool first_track = true; 
 
 /**
- * Returns the symbol buffer from the sync struct.
+ * Seartches for PSS and updates
+ * the \p q struct accordingly.
+ * The pointer \p sf_symbols will be set to point 
+ * to an aligned subframe buffer.
  */
 int srslte_ue_sync_get_buffer(srslte_ue_sync_t *q, cf_t **sf_symbols) {
   int ret = srslte_ue_sync_zerocopy(q, q->input_buffer);

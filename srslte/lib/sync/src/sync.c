@@ -325,7 +325,8 @@ srslte_pss_synch_t* srslte_sync_get_cur_pss_obj(srslte_sync_t *q) {
  return pss_obj[q->cfo_i+1];
 }
 
-/** Finds the PSS sequence previously defined by a call to srslte_sync_set_N_id_2()
+/**
+ * Finds the PSS sequence previously defined by a call to srslte_sync_set_N_id_2()
  * around the position find_offset in the buffer input. 
  * Returns 1 if the correlation peak exceeds the threshold set by srslte_sync_set_threshold() 
  * or 0 otherwise. Returns a negative number on error (if N_id_2 has not been set) 

@@ -224,11 +224,7 @@ int cuhd_cell_search(void *uhd, cell_search_cfg_t *config,
 
 /**
  * Finds a cell and decodes MIB from the PBCH.
- * If a cell is found, then the following values will be configured in \p cell:
- * - \var bw_idx
- * - \var nof_prb
- * - \var phich_length
- * - \var phich_resources
+ * If a cell is found, then \p cell struct will be configured.
  * This command starts the UHD stream.
  * 
  * @param uhd The device
